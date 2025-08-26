@@ -7,7 +7,11 @@ import {
   User2,
   ChevronUp,
   Plus,
-  Projector,
+  Activity,
+  Stethoscope,
+  Syringe,
+  FileText,
+  HeartPulse,
   ChevronDown,
 } from "lucide-react";
 import {
@@ -44,22 +48,22 @@ import {
 
 const items = [
   {
-    title: "Home",
+    title: "Dashboard",
     url: "/",
     icon: Home,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
+    title: "Appointments",
     url: "#",
     icon: Calendar,
   },
   {
-    title: "Search",
+    title: "Messages",
+    url: "#",
+    icon: Inbox,
+  },
+  {
+    title: "Patient Search",
     url: "#",
     icon: Search,
   },
@@ -78,8 +82,8 @@ const AppSidebar = () => {
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link href="/">
-                <Image src="/logo.svg" alt="logo" width={20} height={20} />
-                <span>Lama Dev</span>
+                <Image src="/health-logo.svg" alt="logo" width={20} height={20} />
+                <span>HealthCare Pro</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -87,8 +91,9 @@ const AppSidebar = () => {
       </SidebarHeader>
       <SidebarSeparator />
       <SidebarContent>
+        {/* MAIN NAV */}
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
@@ -99,46 +104,49 @@ const AppSidebar = () => {
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
-                  {item.title === "Inbox" && (
-                    <SidebarMenuBadge>24</SidebarMenuBadge>
+                  {item.title === "Messages" && (
+                    <SidebarMenuBadge>5</SidebarMenuBadge>
                   )}
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {/* PATIENT RECORDS */}
         <SidebarGroup>
-          <SidebarGroupLabel>Projects</SidebarGroupLabel>
+          <SidebarGroupLabel>Patients</SidebarGroupLabel>
           <SidebarGroupAction>
-            <Plus /> <span className="sr-only">Add Project</span>
+            <Plus /> <span className="sr-only">Add Patient</span>
           </SidebarGroupAction>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link href="/#">
-                    <Projector />
-                    See All Projects
+                  <Link href="/patients">
+                    <Stethoscope />
+                    All Patients
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link href="/#">
+                  <Link href="/patients/new">
                     <Plus />
-                    Add Project
+                    Add Patient
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        {/* COLLAPSABLE */}
+
+        {/* COLLAPSABLE EXAMPLE */}
         <Collapsible defaultOpen className="group/collapsible">
           <SidebarGroup>
             <SidebarGroupLabel asChild>
               <CollapsibleTrigger>
-                Collapsable Group
+                Reports
                 <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
               </CollapsibleTrigger>
             </SidebarGroupLabel>
@@ -147,17 +155,17 @@ const AppSidebar = () => {
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                      <Link href="/#">
-                        <Projector />
-                        See All Projects
+                      <Link href="/reports/lab">
+                        <Syringe />
+                        Lab Reports
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                      <Link href="/#">
-                        <Plus />
-                        Add Project
+                      <Link href="/reports/health">
+                        <HeartPulse />
+                        Health Reports
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -166,32 +174,33 @@ const AppSidebar = () => {
             </CollapsibleContent>
           </SidebarGroup>
         </Collapsible>
+
         {/* NESTED */}
         <SidebarGroup>
-          <SidebarGroupLabel>Nested Items</SidebarGroupLabel>
+          <SidebarGroupLabel>Records</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link href="/#">
-                    <Projector />
-                    See All Projects
+                  <Link href="/records">
+                    <FileText />
+                    Medical Records
                   </Link>
                 </SidebarMenuButton>
                 <SidebarMenuSub>
                   <SidebarMenuSubItem>
                     <SidebarMenuSubButton asChild>
-                      <Link href="/#">
+                      <Link href="/records/add">
                         <Plus />
-                        Add Project
+                        Add Record
                       </Link>
                     </SidebarMenuSubButton>
                   </SidebarMenuSubItem>
                   <SidebarMenuSubItem>
                     <SidebarMenuSubButton asChild>
-                      <Link href="/#">
-                        <Plus />
-                        Add Category
+                      <Link href="/records/categories">
+                        <Activity />
+                        Categories
                       </Link>
                     </SidebarMenuSubButton>
                   </SidebarMenuSubItem>
@@ -201,19 +210,21 @@ const AppSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      {/* FOOTER */}
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton>
-                  <User2 /> John Doe <ChevronUp className="ml-auto" />
+                  <User2 /> Dr. John Doe <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>Account</DropdownMenuItem>
-                <DropdownMenuItem>Setting</DropdownMenuItem>
-                <DropdownMenuItem>Sign out</DropdownMenuItem>
+                <DropdownMenuItem>My Profile</DropdownMenuItem>
+                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>Logout</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>

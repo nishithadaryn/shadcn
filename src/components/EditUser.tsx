@@ -29,45 +29,45 @@ import {
 import { Button } from "./ui/button";
 
 const formSchema = z.object({
-  username: z
+  name: z
     .string()
-    .min(2, { message: "Username must be at least 2 characters!" })
-    .max(50),
+    .min(2, { message: "Patient name must be at least 2 characters!" })
+    .max(100),
   email: z.string().email({ message: "Invalid email address!" }),
   phone: z.string().min(10).max(15),
   location: z.string().min(2),
-  role: z.enum(["admin", "user"]),
+  status: z.enum(["inpatient", "outpatient"]),
 });
 
-const EditUser = () => {
+const EditPatient = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "john.doe",
-      email: "john.doe@gmail.com",
+      name: "John Doe",
+      email: "john.doe@hospital.org",
       phone: "+1 234 5678",
       location: "New York, NY",
-      role: "admin",
+      status: "outpatient",
     },
   });
   return (
     <SheetContent>
       <SheetHeader>
-        <SheetTitle className="mb-4">Edit User</SheetTitle>
+        <SheetTitle className="mb-4">Edit Patient Record</SheetTitle>
         <SheetDescription asChild>
           <Form {...form}>
             <form className="space-y-8">
               <FormField
                 control={form.control}
-                name="username"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Patient Name</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
                     <FormDescription>
-                      This is your public username.
+                      Enter the patient's full name.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -83,7 +83,7 @@ const EditUser = () => {
                       <Input {...field} />
                     </FormControl>
                     <FormDescription>
-                      Only admin can see your email.
+                      Used for official hospital communication.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -99,7 +99,7 @@ const EditUser = () => {
                       <Input {...field} />
                     </FormControl>
                     <FormDescription>
-                      Only admin can see your phone number.
+                      Emergency contact or patient’s primary number.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -110,12 +110,12 @@ const EditUser = () => {
                 name="location"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Location</FormLabel>
+                    <FormLabel>Ward / Location</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
                     <FormDescription>
-                      This is the public location.
+                      Current ward, room, or residence.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -123,29 +123,32 @@ const EditUser = () => {
               />
               <FormField
                 control={form.control}
-                name="role"
+                name="status"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Role</FormLabel>
+                    <FormLabel>Patient Status</FormLabel>
                     <FormControl>
-                      <Select>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger>
-                          <SelectValue placeholder="Role" />
+                          <SelectValue placeholder="Select status" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="admin">Admin</SelectItem>
-                          <SelectItem value="user">User</SelectItem>
+                          <SelectItem value="inpatient">Inpatient</SelectItem>
+                          <SelectItem value="outpatient">Outpatient</SelectItem>
                         </SelectContent>
                       </Select>
                     </FormControl>
                     <FormDescription>
-                      Only verified users can be admin.
+                      Indicates whether the patient is admitted or visiting.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Save Record</Button>
             </form>
           </Form>
         </SheetDescription>
@@ -154,4 +157,5 @@ const EditUser = () => {
   );
 };
 
-export default EditUser;
+export default EditPatient;
+

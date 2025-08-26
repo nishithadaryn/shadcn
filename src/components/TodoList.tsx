@@ -13,13 +13,16 @@ import { Calendar } from "./ui/calendar";
 const TodoList = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [open, setOpen] = useState(false);
+
   return (
     <div className="">
-      <h1 className="text-lg font-medium mb-6">Todo List</h1>
+      <h1 className="text-lg font-medium mb-6">Healthcare To-Do List</h1>
+
+      {/* Calendar Picker */}
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button className="w-full">
-            <CalendarIcon />
+            <CalendarIcon className="mr-2 h-4 w-4" />
             {date ? format(date, "PPP") : <span>Pick a date</span>}
           </Button>
         </PopoverTrigger>
@@ -34,126 +37,84 @@ const TodoList = () => {
           />
         </PopoverContent>
       </Popover>
+
       {/* LIST */}
       <ScrollArea className="max-h-[400px] mt-4 overflow-y-auto">
         <div className="flex flex-col gap-4">
+
           {/* LIST ITEM */}
           <Card className="p-4">
             <div className="flex items-center gap-4">
-              <Checkbox id="item1" checked />
-              <label htmlFor="item1" className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              <Checkbox id="checkup" defaultChecked />
+              <label htmlFor="checkup" className="text-sm text-muted-foreground">
+                Book annual health check-up
               </label>
             </div>
           </Card>
-          {/* LIST ITEM */}
+
           <Card className="p-4">
             <div className="flex items-center gap-4">
-              <Checkbox id="item1" checked />
-              <label htmlFor="item1" className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              <Checkbox id="medication" />
+              <label htmlFor="medication" className="text-sm text-muted-foreground">
+                Take prescribed medication
               </label>
             </div>
           </Card>
-          {/* LIST ITEM */}
+
           <Card className="p-4">
             <div className="flex items-center gap-4">
-              <Checkbox id="item1" />
-              <label htmlFor="item1" className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              <Checkbox id="hydration" />
+              <label htmlFor="hydration" className="text-sm text-muted-foreground">
+                Drink 8 glasses of water
               </label>
             </div>
           </Card>
-          {/* LIST ITEM */}
+
           <Card className="p-4">
             <div className="flex items-center gap-4">
-              <Checkbox id="item1" />
-              <label htmlFor="item1" className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              <Checkbox id="exercise" />
+              <label htmlFor="exercise" className="text-sm text-muted-foreground">
+                30-minute workout or walk
               </label>
             </div>
           </Card>
-          {/* LIST ITEM */}
+
           <Card className="p-4">
             <div className="flex items-center gap-4">
-              <Checkbox id="item1" />
-              <label htmlFor="item1" className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              <Checkbox id="appointment" />
+              <label htmlFor="appointment" className="text-sm text-muted-foreground">
+                Schedule doctor’s appointment
               </label>
             </div>
           </Card>
-          {/* LIST ITEM */}
+
           <Card className="p-4">
             <div className="flex items-center gap-4">
-              <Checkbox id="item1" />
-              <label htmlFor="item1" className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              <Checkbox id="bp" />
+              <label htmlFor="bp" className="text-sm text-muted-foreground">
+                Record blood pressure
               </label>
             </div>
           </Card>
-          {/* LIST ITEM */}
+
           <Card className="p-4">
             <div className="flex items-center gap-4">
-              <Checkbox id="item1" />
-              <label htmlFor="item1" className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              <Checkbox id="diet" />
+              <label htmlFor="diet" className="text-sm text-muted-foreground">
+                Track daily meals / nutrition
               </label>
             </div>
           </Card>
-          {/* LIST ITEM */}
+
           <Card className="p-4">
             <div className="flex items-center gap-4">
-              <Checkbox id="item1" />
-              <label htmlFor="item1" className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              <Checkbox id="rest" />
+              <label htmlFor="rest" className="text-sm text-muted-foreground">
+                Get 7–8 hours of sleep
               </label>
             </div>
           </Card>
-          {/* LIST ITEM */}
-          <Card className="p-4">
-            <div className="flex items-center gap-4">
-              <Checkbox id="item1" checked />
-              <label htmlFor="item1" className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </label>
-            </div>
-          </Card>
-          {/* LIST ITEM */}
-          <Card className="p-4">
-            <div className="flex items-center gap-4">
-              <Checkbox id="item1" checked />
-              <label htmlFor="item1" className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </label>
-            </div>
-          </Card>
-          {/* LIST ITEM */}
-          <Card className="p-4">
-            <div className="flex items-center gap-4">
-              <Checkbox id="item1" checked />
-              <label htmlFor="item1" className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </label>
-            </div>
-          </Card>
-          {/* LIST ITEM */}
-          <Card className="p-4">
-            <div className="flex items-center gap-4">
-              <Checkbox id="item1" checked />
-              <label htmlFor="item1" className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </label>
-            </div>
-          </Card>
-          {/* LIST ITEM */}
-          <Card className="p-4">
-            <div className="flex items-center gap-4">
-              <Checkbox id="item1" checked />
-              <label htmlFor="item1" className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              </label>
-            </div>
-          </Card>
+
         </div>
       </ScrollArea>
     </div>

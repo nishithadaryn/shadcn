@@ -1,114 +1,96 @@
 "use client";
 
-import { Label, Pie, PieChart } from "recharts";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "./ui/chart";
-import { TrendingUp } from "lucide-react";
+import Image from "next/image";
+import { Card, CardContent } from "@/components/ui/card";
 
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  chrome: {
-    label: "Chrome",
-    color: "var(--chart-1)",
-  },
-  safari: {
-    label: "Safari",
-    color: "var(--chart-2)",
-  },
-  firefox: {
-    label: "Firefox",
-    color: "var(--chart-3)",
-  },
-  edge: {
-    label: "Edge",
-    color: "var(--chart-4)",
-  },
-  other: {
-    label: "Other",
-    color: "var(--chart-5)",
-  },
-} satisfies ChartConfig;
-
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 190, fill: "var(--color-other)" },
-];
-
-const AppPieChart = () => {
-
-  // If you don't use React compiler use useMemo hook to improve performance
-  const totalVisitors = chartData.reduce((acc, curr) => acc + curr.visitors, 0);
-  
-  return (
-    <div className="">
-      <h1 className="text-lg font-medium mb-6">Browser Usage</h1>
-      <ChartContainer
-        config={chartConfig}
-        className="mx-auto aspect-square max-h-[250px]"
-      >
-        <PieChart>
-          <ChartTooltip
-            cursor={false}
-            content={<ChartTooltipContent hideLabel />}
-          />
-          <Pie
-            data={chartData}
-            dataKey="visitors"
-            nameKey="browser"
-            innerRadius={60}
-            strokeWidth={5}
-          >
-            <Label
-              content={({ viewBox }) => {
-                if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                  return (
-                    <text
-                      x={viewBox.cx}
-                      y={viewBox.cy}
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                    >
-                      <tspan
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                        className="fill-foreground text-3xl font-bold"
-                      >
-                        {totalVisitors.toLocaleString()}
-                      </tspan>
-                      <tspan
-                        x={viewBox.cx}
-                        y={(viewBox.cy || 0) + 24}
-                        className="fill-muted-foreground"
-                      >
-                        Visitors
-                      </tspan>
-                    </text>
-                  );
-                }
-              }}
-            />
-          </Pie>
-        </PieChart>
-      </ChartContainer>
-      <div className="mt-4 flex flex-col gap-2 items-center">
-        <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4 text-green-500" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </div>
-    </div>
-  );
+const patient = {
+  id: 1,
+  name: "Jane Doe",
+  picture: "/patients/jane.jpg", // make sure to place a jane.jpg file in public/patients/
+  age: 32,
+  gender: "Female",
+  department: "Neurology",
+  problem: "Migraine",
+  medication: "Sumatriptan 50mg as needed",
+  doctor: "Dr. Smith",
+  lastVisit: "2025-08-22",
+  // ✅ Health details
+  bodyTemperatureC: 37.2,
+  bodyTemperatureF: 98.9,
+  weightKg: 62,
+  heightCm: 165,
+  bloodPressure: "120/80 mmHg",
+  heartRate: 76,
+  spo2: "98%",
+  allergies: "Penicillin",
 };
 
-export default AppPieChart;
+export default function PatientDashboard() {
+  // Calculate BMI
+  const bmi = (patient.weightKg / ((patient.heightCm / 100) ** 2)).toFixed(1);
+
+  return (
+    <div>
+      <h1 className="text-lg font-medium mb-6">Patient Dashboard</h1>
+
+      {/* Patient Profile Panel */}
+      <Card className="rounded-2xl shadow-lg max-w-md mx-auto mb-6">
+        <CardContent className="p-6 flex flex-col items-center text-center">
+          <Image
+            src={patient.picture}
+            alt={patient.name}
+            width={100}
+            height={100}
+            className="rounded-full border shadow"
+          />
+          <h2 className="text-xl font-semibold mt-4">{patient.name}</h2>
+          <p className="text-muted-foreground text-sm">
+            {patient.age} years • {patient.gender}
+          </p>
+
+          <div className="mt-4 text-left w-full space-y-2">
+            <p><span className="font-medium">Department:</span> {patient.department}</p>
+            <p><span className="font-medium">Problem:</span> {patient.problem}</p>
+            <p><span className="font-medium">Medication:</span> {patient.medication}</p>
+            <p><span className="font-medium">Doctor:</span> {patient.doctor}</p>
+            <p><span className="font-medium">Last Visit:</span> {patient.lastVisit}</p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Health Details Panel */}
+      <Card className="rounded-2xl shadow-lg max-w-md mx-auto">
+        <CardContent className="p-6">
+          <h2 className="text-lg font-semibold mb-4 text-center">Health Details</h2>
+          <div className="space-y-2">
+            <p>
+              <span className="font-medium">Body Temperature:</span>{" "}
+              {patient.bodyTemperatureC}°C / {patient.bodyTemperatureF}°F
+            </p>
+            <p>
+              <span className="font-medium">Weight:</span> {patient.weightKg} kg
+            </p>
+            <p>
+              <span className="font-medium">Height:</span> {patient.heightCm} cm
+            </p>
+            <p>
+              <span className="font-medium">BMI:</span> {bmi}
+            </p>
+            <p>
+              <span className="font-medium">Blood Pressure:</span> {patient.bloodPressure}
+            </p>
+            <p>
+              <span className="font-medium">Heart Rate:</span> {patient.heartRate} bpm
+            </p>
+            <p>
+              <span className="font-medium">SpO₂:</span> {patient.spo2}
+            </p>
+            <p>
+              <span className="font-medium">Allergies:</span> {patient.allergies}
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

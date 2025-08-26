@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut, Moon, Settings, Sun, User } from "lucide-react";
+import { Stethoscope, HeartPulse, Moon, Sun, User, LogOut, Settings } from "lucide-react";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
@@ -13,21 +13,28 @@ import {
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { useTheme } from "next-themes";
-import { SidebarTrigger, useSidebar } from "./ui/sidebar";
+import { SidebarTrigger } from "./ui/sidebar";
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
-  const { toggleSidebar } = useSidebar();
+
   return (
-    <nav className="p-4 flex items-center justify-between sticky top-0 bg-background z-10">
+    <nav className="p-4 flex items-center justify-between sticky top-0 bg-background z-10 shadow-sm">
       {/* LEFT */}
-      <SidebarTrigger />
-      {/* <Button variant="outline" onClick={toggleSidebar}>
-        Custom Button
-      </Button> */}
+      <div className="flex items-center gap-2">
+        <SidebarTrigger />
+        <Link href="/" className="flex items-center gap-2 font-semibold text-primary">
+          <HeartPulse className="h-5 w-5 text-red-500" />
+          <span>Health Dashboard</span>
+        </Link>
+      </div>
+
       {/* RIGHT */}
       <div className="flex items-center gap-4">
-        <Link href="/">Dashboard</Link>
+        <Link href="/patients">Patients</Link>
+        <Link href="/appointments">Appointments</Link>
+        <Link href="/reports">Reports</Link>
+
         {/* THEME MENU */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -38,27 +45,22 @@ const Navbar = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => setTheme("light")}>
-              Light
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("dark")}>
-              Dark
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("system")}>
-              System
-            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+
         {/* USER MENU */}
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar>
               <AvatarImage src="https://avatars.githubusercontent.com/u/1486366" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarFallback>DR</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent sideOffset={10}>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>Doctor’s Panel</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <User className="h-[1.2rem] w-[1.2rem] mr-2" />
