@@ -15,7 +15,7 @@ const Homepage = () => {
       <div className="bg-primary-foreground p-4 rounded-lg">
         <AppPieChart />
       </div>
-      <div className="bg-primary-foreground p-4 rounded-lg lg:col-span-2 xl:col-span-1 2xl:col-span-4">
+      <div className="bg-primary-foreground p-4 rounded-lg lg:col-span-2 xl:col-span-1 2xl:col-span-">
         <AppAreaChart />
       </div>
     </div>
